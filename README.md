@@ -14,7 +14,7 @@
 	* ```using System.ComponentModel```
 	* inherit from ```INotifyPropertyChanged```
 	* adding:
-	```
+	```c#
 	internal void RaisePropertyChanged(string prop)
 	{
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(prop)); }
