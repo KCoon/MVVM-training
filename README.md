@@ -25,7 +25,7 @@
 1. adding class ViewModelMain to directory ViewModel
 	* inherit from ```ViewModelBase```
 	* adding string property
-	```
+	```c#
 	private string _TextProperty1;
 	public string TextProperty1
 	{
@@ -50,7 +50,7 @@
 	* add namespace xmlns:vm="clr-namespace:[Project].ViewModel"
 	* add ```DataContext="{DynamicResource ViewModelMain}"```
 	* add Window.Resources
-	```
+	```xaml
 	<Window.Resources>
         <vm:ViewModelMain x:Key="ViewModelMain" />
     </Window.Resources>
