@@ -4,6 +4,7 @@
 	* Model
 	* View
 	* ViewModel
+	* MVVM
 
 1. move MainWindow into View
 
