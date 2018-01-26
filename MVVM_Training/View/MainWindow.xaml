@@ -21,7 +21,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding BooleanProperty}" />
-                        <TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" />
+                        <TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" Width="30" />
+                        <ComboBox ItemsSource="{Binding CitysProperty}" SelectedIndex="0" Margin="10,0,0,0" Width="80" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

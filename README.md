@@ -252,7 +252,7 @@
 			<DataTemplate>
 				<StackPanel Orientation="Horizontal">
 					<CheckBox IsChecked="{Binding BooleanProperty}" />
-					<TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" />
+					<TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" Width="30" />
 				</StackPanel>
 			</DataTemplate>
 		</ListBox.ItemTemplate>
@@ -282,4 +282,49 @@
 1. Add Button to **View** and bind command
 	```xaml
 	<Button Command="{Binding AddListItemCommand}" Content="Add" Margin="80,-135,0,0" Width="75" Height="25"/>
+	```
+
+## ComboBox of enum in ListBox
+
+1. Add file named **Enums.cs** to directory *Model*
+	* Add enum
+	```c#
+	enum Citys { Bergen, Celle, Soltau, Karlsruhe, Donaueschingen, Ratingen }
+	```
+
+1. **ListItem**
+	* Add ```using System;```
+	* Add ```using System.Collections.ObjectModel;```
+	* Add ```using MVVM_Training.Model;```
+	* Add **CitysPropertie**
+	```c#
+	private ObservableCollection<string> _citysProperty;
+	public ObservableCollection<string> CitysProperty
+	{
+		get
+		{
+			return _citysProperty;
+		}
+		set
+		{
+			_citysProperty = value;
+		}
+	```
+	* Initialize Collection with the enum in the constructor
+	```c#
+	_citysProperty = new ObservableCollection<string>(Enum.GetNames(typeof(Citys)));
+	```
+1. Add ComboBox to **View**
+	```c#
+	<ListBox ItemsSource="{Binding Listing}" Height="100" Width="160" Margin="-200,-60,0,0">
+		<ListBox.ItemTemplate>
+			<DataTemplate>
+				<StackPanel Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding BooleanProperty}" />
+					<TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" Width="30" />
+					<ComboBox ItemsSource="{Binding CitysProperty}" SelectedIndex="0" Margin="10,0,0,0" Width="80" />
+				</StackPanel>
+			</DataTemplate>
+		</ListBox.ItemTemplate>
+	</ListBox>
 	```
