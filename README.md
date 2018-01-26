@@ -1,5 +1,7 @@
 # MVVM-training
 
+## Minimum Example
+
 1. add folders
 	* Model
 	* View
@@ -171,4 +173,113 @@
 	<Window.InputBindings>
 		<KeyBinding Key="Enter" Command="{Binding ConvertTextCommand}" />
     </Window.InputBindings>
+	```
+
+## ListBox
+
+1. Add class **ListItem** to *ViewModel*
+	```c#
+	namespace MVVM_Training.ViewModel
+	{
+		class ListItem
+		{
+			private bool _booleanPropery;
+			public bool BooleanProperty
+			{
+				get
+				{
+					return _booleanPropery;
+				}
+				set
+				{
+					_booleanPropery = value;
+				}
+			}
+
+			private string _textProperty;
+			public string TextProperty
+			{
+				get
+				{
+					return _textProperty;
+				}
+				set
+				{
+					_textProperty = value;
+				}
+			}
+
+			public ListItem(bool boolean, string text)
+			{
+				_booleanPropery = boolean;
+				_textProperty = text;
+			}
+		}
+	}
+	```
+1. **ViewModelMain**
+	* Add ```using System.Collections.ObjectModel;```
+	* Add property of type ObserableCollection<ListItem>
+	```c#
+	private ObservableCollection<ListItem> _listing;
+	public ObservableCollection<ListItem> Listing
+	{
+		get
+		{
+			return _listing;
+		}
+		set
+		{
+			_listing = value;
+		}
+	}
+	```
+	* Initialize **Listing** with data in the constructor
+	```c#
+	public ViewModelMain()
+	{
+		_TextProperty1 = "Enter text and press Enter...";
+
+		_listing = new ObservableCollection<ListItem>();
+		_listing.Add(new ListItem(true, "foo"));
+		_listing.Add(new ListItem(false, "bar"));
+	}
+	```
+1. Add ListBox to **View** and bind it
+	```xaml
+	<ListBox ItemsSource="{Binding Listing}" Height="100" Width="160" Margin="-200,-60,0,0">
+		<ListBox.ItemTemplate>
+			<DataTemplate>
+				<StackPanel Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding BooleanProperty}" />
+					<TextBlock Text="{Binding TextProperty}" Margin="10,0,0,0" />
+				</StackPanel>
+			</DataTemplate>
+		</ListBox.ItemTemplate>
+	</ListBox>
+	```
+
+1. Add Command to **ViewModel**
+	```c#
+	private RelayCommand _addListItemCommand;
+	public ICommand AddListItemCommand
+	{
+		get
+		{
+			if (_addListItemCommand == null)
+			{
+				_addListItemCommand = new RelayCommand(param => this.AddListItem());
+			}
+			return _addListItemCommand;
+		}
+	}
+
+	private void AddListItem()
+	{
+		_listing.Add(new ListItem(true, "foobar"));
+	}
+	```
+1. Add Button to **View** and bind command
+	```xaml
+	<Button Command="{Binding AddListItemCommand}" Content="Add" Margin="80,-135,0,0" Width="75" Height="25"/>
 	```

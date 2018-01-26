@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using MVVM_Training.MVVM;
 using MVVM_Training.Model;
+using System.Collections.ObjectModel;
 
 namespace MVVM_Training.ViewModel
 {
@@ -25,9 +26,26 @@ namespace MVVM_Training.ViewModel
             }
         }
 
+        private ObservableCollection<ListItem> _listing;
+        public ObservableCollection<ListItem> Listing
+        {
+            get
+            {
+                return _listing;
+            }
+            set
+            {
+                _listing = value;
+            }
+        }
+
         public ViewModelMain()
         {
             _TextProperty1 = "Enter text and press Enter...";
+
+            _listing = new ObservableCollection<ListItem>();
+            _listing.Add(new ListItem(true, "foo"));
+            _listing.Add(new ListItem(false, "bar"));
         }
 
         private RelayCommand _convertTextCommand;
@@ -46,6 +64,24 @@ namespace MVVM_Training.ViewModel
         private void ConvertText()
         {
             TextProperty1 = converter.ChangeText(_TextProperty1);
+        }
+
+        private RelayCommand _addListItemCommand;
+        public ICommand AddListItemCommand
+        {
+            get
+            {
+                if (_addListItemCommand == null)
+                {
+                    _addListItemCommand = new RelayCommand(param => this.AddListItem());
+                }
+                return _addListItemCommand;
+            }
+        }
+
+        private void AddListItem()
+        {
+            _listing.Add(new ListItem(true, "foobar"));
         }
     }
 }
