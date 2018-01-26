@@ -309,6 +309,7 @@
 		{
 			_citysProperty = value;
 		}
+	}
 	```
 	* Initialize Collection with the enum in the constructor
 	```c#
