@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM_Training"
+        xmlns:m="clr-namespace:MVVM_Training.Model"
         xmlns:vm="clr-namespace:MVVM_Training.ViewModel"
+        xmlns:con="clr-namespace:MVVM_Collections.Converter" 
         mc:Ignorable="d"
         DataContext="{DynamicResource ViewModelMain}"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <vm:ViewModelMain x:Key="ViewModelMain" />
+        <con:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding ConvertTextCommand}" />
@@ -28,5 +31,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Command="{Binding AddListItemCommand}" Content="Add" Margin="80,-135,0,0" Width="75" Height="25"/>
+        <StackPanel Width="160" Height="50" Margin="-200,150,0,0">
+            <RadioButton Content="Red" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.red}}" />
+            <RadioButton Content="Pink" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.pink}}" />
+            <RadioButton Content="Purple" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.purple}}" />
+        </StackPanel>
     </Grid>
 </Window>

@@ -296,7 +296,7 @@
 	* Add ```using System;```
 	* Add ```using System.Collections.ObjectModel;```
 	* Add ```using MVVM_Training.Model;```
-	* Add **CitysPropertie**
+	* Add **CitysProperty**
 	```c#
 	private ObservableCollection<string> _citysProperty;
 	public ObservableCollection<string> CitysProperty
@@ -328,4 +328,77 @@
 			</DataTemplate>
 		</ListBox.ItemTemplate>
 	</ListBox>
+	```
+
+## Binding RadioButtons to enum
+
+1. **Converter**
+	* Add folder *Converter* to project
+	* Add class **EnumToBooleanConverter**
+	```c#
+	using System;
+	using System.Windows.Data;
+
+	namespace MVVM_Collections.Converter
+	{
+		class EnumToBooleanConverter : IValueConverter
+		{
+			public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+			{
+				return value.Equals(parameter);
+			}
+
+			public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+			{
+				return value.Equals(true) ? parameter : Binding.DoNothing;
+			}
+		}
+	}
+	```
+
+1. Add enum **Colours** to *Model/Enums.cs*
+	```c#
+	enum Colours { red, pink, purple}
+	```
+1. **ViewModel**
+	* Add Property **FavouriteColour**
+	```c#
+	private Colours _favouriteColour;
+	public Colours FavouriteColour
+	{
+		get
+		{
+			return _favouriteColour;
+		}
+		set
+		{
+			_favouriteColour = value;
+		}
+	}
+	```
+	* Initialize **FavouriteColour** in constructor
+	```c#
+	_favouriteColour = Colours.pink;
+	```
+
+1. **View**
+	* Add namespace of converters
+	```xaml
+	xmlns:con="clr-namespace:MVVM_Collections.Converter"
+	```
+	* Add namespace of **Model**
+	```xaml
+	xmlns:m="clr-namespace:MVVM_Training.Model"
+	```
+	* Add converter to static resources
+	```xaml
+	<con:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+	```
+	* Add RadioButtons and bind them
+	```xaml
+	<StackPanel Width="160" Height="50" Margin="-200,150,0,0">
+		<RadioButton Content="Red" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.red}}" />
+		<RadioButton Content="Pink" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.pink}}" />
+		<RadioButton Content="Purple" IsChecked="{Binding FavouriteColour, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:Colours.purple}}" />
+	</StackPanel>
 	```

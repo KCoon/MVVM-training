@@ -39,6 +39,19 @@ namespace MVVM_Training.ViewModel
             }
         }
 
+        private Colours _favouriteColour;
+        public Colours FavouriteColour
+        {
+            get
+            {
+                return _favouriteColour;
+            }
+            set
+            {
+                _favouriteColour = value;
+            }
+        }
+
         public ViewModelMain()
         {
             _TextProperty1 = "Enter text and press Enter...";
@@ -46,6 +59,8 @@ namespace MVVM_Training.ViewModel
             _listing = new ObservableCollection<ListItem>();
             _listing.Add(new ListItem(true, "foo"));
             _listing.Add(new ListItem(false, "bar"));
+
+            _favouriteColour = Colours.pink;
         }
 
         private RelayCommand _convertTextCommand;
