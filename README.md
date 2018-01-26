@@ -316,7 +316,7 @@
 	_citysProperty = new ObservableCollection<string>(Enum.GetNames(typeof(Citys)));
 	```
 1. Add ComboBox to **View**
-	```c#
+	```xaml
 	<ListBox ItemsSource="{Binding Listing}" Height="100" Width="160" Margin="-200,-60,0,0">
 		<ListBox.ItemTemplate>
 			<DataTemplate>
