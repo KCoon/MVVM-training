@@ -1,6 +1,5 @@
 # MVVM-training
 
-
 ## Minimum Example
 
 1. add folders
