@@ -1,5 +1,7 @@
 # MVVM-training
 
+this will be deleted in next commit
+
 ## Minimum Example
 
 1. add folders
