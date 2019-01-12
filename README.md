@@ -1,5 +1,7 @@
 # MVVM-training
 
+first line in new commit
+
 
 ## Minimum Example
 
